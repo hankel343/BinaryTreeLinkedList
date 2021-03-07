@@ -24,12 +24,18 @@
     <ClCompile Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\ItemType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\Queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TreeType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\ItemType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\Queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

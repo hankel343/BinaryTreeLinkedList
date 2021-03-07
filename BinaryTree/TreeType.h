@@ -1,6 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 #include "ItemType.h"	//Note that ItemType stores chars for this class.
+#include "Queue.h"
 #include <iostream>
 
 /*Node declaration of individual node that makes up the tree.*/
@@ -18,12 +19,15 @@ class TreeType
 {
 private:
 	TreeNode* pRoot;
+	Queue PreQueue;
+	Queue InQueue;
+	Queue postQueue;
 
 public:
 	TreeType();
 	~TreeType();
 	TreeType(const TreeType& originalTree);
-	void operator=(TreeType& originalTree);
+	void operator=(const TreeType& originalTree);
 	void MakeEmpty();
 	bool IsEmpty() const;
 	bool IsFull() const;

@@ -2,6 +2,9 @@
 
 /*===== Method Helper Functions =====*/
 
+//Copy constructor:
+void CopyTree(TreeNode*& copy, const TreeNode* originalTree);
+
 //TreeType::DeleteItem():
 void Delete(TreeNode*& tree, ItemType item);
 void DeleteNode(TreeNode*& tree);
@@ -22,11 +25,46 @@ void PrintTree(TreeNode* tree);
 //TreeType::~TreeType():
 void Destroy(TreeNode*& tree);
 
+//Traversal functions - Auxilaries for TreeType::ResetTree():
+void PreOrder(TreeNode*, Queue&);
+void InOrder(TreeNode*, Queue&);
+void PostOrder(TreeNode*, Queue&);
+
 
 /*===== Class methods =====*/
+
+//Constructor:
 TreeType::TreeType()
 {
 	pRoot = NULL;
+}
+
+//Copy constructor:
+TreeType::TreeType(const TreeType& originalTree)
+{
+	CopyTree(pRoot, originalTree.pRoot);
+}
+
+/*Helper function to the copy constructor:*/
+void CopyTree(TreeNode*& copy, const TreeNode* originalTree)
+{
+	if (originalTree == NULL)
+		copy = NULL;
+	else
+	{
+		copy = new TreeNode;
+		copy->iData = originalTree->iData;
+		CopyTree(copy->pLeft, originalTree->pLeft);
+		CopyTree(copy->pRight, originalTree->pRight);
+	}
+}
+
+void TreeType::operator=(const TreeType& originalTree)
+{
+	if (&originalTree == this)
+		return;			//Ignore assigning the same node to itself.
+	Destroy(pRoot);		//Deallocate existing tree nodes.
+	CopyTree(pRoot, originalTree.pRoot);
 }
 
 int TreeType::GetLength() const
@@ -173,11 +211,85 @@ bool TreeType::IsEmpty() const
 	return (pRoot == NULL);
 }
 
+void TreeType::ResetTree(OrderType order)
+{
+	switch (order)
+	{
+	case PREORDER:	PreOrder(pRoot, PreQueue);
+					break;
+
+	case INORDER:	InOrder(pRoot, InQueue);
+					break;
+
+	case POSTORDER:	PostOrder(pRoot, postQueue);
+					break;
+	}
+}
+
+/*Auxiliary function to TreeType::ResetTree*/
+void PreOrder(TreeNode* tree, Queue& preQueue)
+{
+	if (tree != NULL)
+	{
+		preQueue.Enqueue(tree->iData);
+		PreOrder(tree->pLeft, preQueue);
+		PreOrder(tree->pRight, preQueue);
+	}
+}
+
+/*Auxiliary function to TreeType::ResetTree*/
+void InOrder(TreeNode* tree, Queue& inQueue)
+{
+	if (tree != NULL)
+	{
+		InOrder(tree->pLeft, inQueue);
+		inQueue.Enqueue(tree->iData);
+		InOrder(tree->pRight, inQueue);
+	}
+}
+
+/*Auxiliary function to TreeType::ResetTree*/
+void PostOrder(TreeNode* tree, Queue& postQueue)
+{
+	if (tree != NULL)
+	{
+		PostOrder(tree->pLeft, postQueue);
+		PostOrder(tree->pRight, postQueue);
+		postQueue.Enqueue(tree->iData);
+	}
+}
+
+ItemType TreeType::GetNextItem(OrderType order, bool& finished)
+{
+	ItemType item;
+	finished = false;
+	
+	switch (order)
+	{
+	case PREORDER:	PreQueue.Dequeue(item);
+					if (PreQueue.IsEmpty())
+						finished = true;
+					break;
+
+	case INORDER:	InQueue.Dequeue(item);
+					if (InQueue.IsEmpty())
+						finished = true;
+					break;
+
+	case POSTORDER:	postQueue.Dequeue(item);
+					if (postQueue.IsEmpty())
+						finished = true;
+					break;
+	}
+	return item;
+}
+
 TreeType::~TreeType()
 {
 	Destroy(pRoot);
 }
 
+/*Helper function for the destructor*/
 void Destroy(TreeNode*& tree)
 {
 	if (tree != NULL)

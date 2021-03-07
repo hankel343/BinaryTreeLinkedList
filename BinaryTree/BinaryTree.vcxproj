@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\ItemType.cpp" />
+    <ClCompile Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\Queue.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TreeType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\ItemType.h" />
+    <ClInclude Include="..\..\..\..\Labs\DS_Lab4_RecursionUsingStacks\DS_Lab4_RecursionUsingStacks\Queue.h" />
     <ClInclude Include="TreeType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
