@@ -33,7 +33,7 @@ public:
 	void DeleteItem(ItemType item);
 	void ResetTree(OrderType order);
 	ItemType GetNextItem(OrderType order, bool& finished);
-	void Print(std::ofstream& outFile) const;
+	void Print() const;
 };
 
 #endif TREE_H
